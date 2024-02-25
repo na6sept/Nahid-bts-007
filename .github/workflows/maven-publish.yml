@@ -32,8 +32,8 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - run: mkdir dev && cp target/* dev
-    - uses: actions/upload-artifacts@v3
+    - run: mkdir dev && cp target/*.jar dev
+    - uses: actions/upload-artifact@v3
       with:
         name: Package
         path: dev
