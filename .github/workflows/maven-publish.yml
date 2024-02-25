@@ -50,7 +50,7 @@ jobs:
         remote: home/ec2-user/ # My remote directory
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Run a script on remote server (start the application)
       if: always()
       uses: fifsky/ssh-action@master
@@ -58,8 +58,8 @@ jobs:
         command: |
           cd home/ec2-user/ && java -jar nahid1-0.0.2-SNAPSHOT.jar &
         host: ${{ secrets.HOST }}
-        user: ${{ secrets.SSH_USER }}
-        pass: ${{ secrets.SSH_PASSWORD }}
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         args: "-tt"
         # The & in the command runs the process on background
     
