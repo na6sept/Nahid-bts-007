@@ -36,4 +36,29 @@ jobs:
       with:
         name: Package
         path: '${{github.workspace}}/target/*.jar'
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy the JAR file to the remote server
+    needs: build
+    steps:
+    - name: Deploy the package to the remote server
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: target/nahid1-0.0.2-SNAPSHOT.jar
+        remote: home/ec2-user/nahid1-0.0.2-SNAPSHOT.jar # My remote directory
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+    - name: Run a script on remote server (start the application)
+      if: always()
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd home/ec2-user/ && java -jar nahid1-0.0.2-SNAPSHOT.jar &
+        host: ${{ secrets.HOST }}
+        user: ${{ secrets.SSH_USER }}
+        pass: ${{ secrets.SSH_PASSWORD }}
+        args: "-tt"
+        # The & in the command runs the process on background
     
