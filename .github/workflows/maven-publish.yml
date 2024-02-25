@@ -37,16 +37,19 @@ jobs:
       with:
         name: Package
         path: dev
-        
-    - name: Deploy the package to the remote server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+
+    - name: sleep for 10 seconds
+      uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
-        server: ${{ secrets.HOST }}
+        time: '10' # for 10 seconds
+    - name: Deploy the package to the remote server
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
+        remote: /home/ec2-user/ # My remote directory
+        host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-        local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
-        remote_path: /home/ec2-user/ # My remote directory
-        sftp_only: true
     - name: Run a script on remote server (start the application)
       if: always()
       uses: fifsky/ssh-action@master
