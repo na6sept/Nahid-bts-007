@@ -37,7 +37,10 @@ jobs:
       with:
         name: Package
         path: dev
-        
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Extract some files
+      run: unzip archive.zip
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
