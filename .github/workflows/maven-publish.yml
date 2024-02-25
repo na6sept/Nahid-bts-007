@@ -37,19 +37,15 @@ jobs:
       with:
         name: Package
         path: dev
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Extract some files
-      run:  unzip ../dev/Package.zip
+        
     - name: Deploy the package to the remote server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      uses: garygrossgarten/github-action-scp@release
       with:
-        username: 'ec2-user'
-        server: '51.20.80.187'
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
-        local_path: '../dev/nahid1-0.0.2-SNAPSHOT.jar'
-        remote_path: '/home/ec2-user/'
-        sftpArgs: '-o ConnectTimeout=5'
+        local: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
+        remote: home/ec2-user/ # My remote directory
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Run a script on remote server (start the application)
       if: always()
       uses: fifsky/ssh-action@master
@@ -61,4 +57,3 @@ jobs:
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         args: "-tt"
         # The & in the command runs the process on background
-    
