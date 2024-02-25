@@ -40,7 +40,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy the JAR file to the remote server
-    needs: build
+    needs: publish-job
     steps:
     - name: Deploy the package to the remote server
       uses: garygrossgarten/github-action-scp@release
