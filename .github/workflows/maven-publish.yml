@@ -44,8 +44,8 @@ jobs:
         server: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-        local: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
-        remote: /home/ec2-user/ # My remote directory
+        local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
+        remote_path: /home/ec2-user/ # My remote directory
         sftp_only: true
     - name: Run a script on remote server (start the application)
       if: always()
