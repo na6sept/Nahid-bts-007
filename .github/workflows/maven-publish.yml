@@ -52,7 +52,7 @@ jobs:
       with:
         server: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        ssh_private_key: echo "$SSH_PRIVATE_KEY" > private_key.pem
+        ssh_private_key: private_key.pem
         local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
         remote_path: /home/ec2-user/ # My remote directory
         sftp_only: true
