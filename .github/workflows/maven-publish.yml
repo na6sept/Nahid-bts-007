@@ -45,7 +45,7 @@ jobs:
       run: |
         touch .pem
         echo private_key= ${{ secrets.SSH_PRIVATE_KEY}} >> .pem
-        chmod 400 private_key.pem
+        chmod 400 {private_key}.pem
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
