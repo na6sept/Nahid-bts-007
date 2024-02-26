@@ -41,11 +41,10 @@ jobs:
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
         time: '10' # for 10 seconds
-    - name: set permissins to current user
+    - name: Set permissions for private key
       run: |
-        touch .pem
-        echo private_key= ${{ secrets.SSH_PRIVATE_KEY}} >> .pem
-        chmod 400 {private_key}.pem
+        echo "$SSH_PRIVATE_KEY" > private_key.pem
+        chmod 400 private_key.pem
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
