@@ -44,14 +44,12 @@ jobs:
     - name: Debug Private Key
       run: |
         echo "${{secrets.SSH_PRIVATE_KEY}}"
-   
-        
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
         server: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        private_key: ${{secrets.SSH_PRIVATE_KEY}}
+        ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
         local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
         remote_path: /home/ec2-user/ # My remote directory
         sftp_only: true
