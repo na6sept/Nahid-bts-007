@@ -41,6 +41,8 @@ jobs:
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
         time: '10' # for 10 seconds
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Set permissions for private key
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key.pem
@@ -50,7 +52,7 @@ jobs:
       with:
         server: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY}}.pem
+        ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
         local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
         remote_path: /home/ec2-user/ # My remote directory
         sftp_only: true
