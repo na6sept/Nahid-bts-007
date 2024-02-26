@@ -44,15 +44,15 @@ jobs:
     - name: Debug Private Key
       run: |
         echo "Private Key Content:"
-        echo "$SSH_PRIVATE_KEY" | head -n 10  # Print the first few lines of the key
-        echo "$SSH_PRIVATE_KEY" > private_key.pem
+        echo ${{ secrets.SSH_PRIVATE_KEY }} | head -n 10  # Print the first few lines of the key
+        echo ${{ secrets.SSH_PRIVATE_KEY }} > private_key.pem
         ls -l private_key.pem  # Check file permissions
         cat private_key.pem    # Print the content of the key 
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Set permissions for private key
       run: |
-        echo "$SSH_PRIVATE_KEY" > private_key.pem
+        echo ${{ secrets.SSH_PRIVATE_KEY }} > private_key.pem
         chmod 400 private_key.pem   
         
     - name: Deploy the package to the remote server
