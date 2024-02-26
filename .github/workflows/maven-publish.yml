@@ -41,6 +41,10 @@ jobs:
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
         time: '10' # for 10 seconds
+    - name: set permissins to current user
+      uses: actions/checkout@v1
+      with:
+       run: chmod 400 ${{pem-key}}.pem
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
