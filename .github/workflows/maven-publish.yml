@@ -47,6 +47,14 @@ jobs:
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key.pem
         chmod 400 private_key.pem
+    - name: Debug Private Key
+      run: |
+        echo "Private Key Content:"
+        echo "$SSH_PRIVATE_KEY" | head -n 10  # Print the first few lines of the key
+        echo "$SSH_PRIVATE_KEY" > private_key.pem
+        ls -l private_key.pem  # Check file permissions
+        cat private_key.pem    # Print the content of the key    
+        
     - name: Deploy the package to the remote server
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
