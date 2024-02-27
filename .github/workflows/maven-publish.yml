@@ -40,20 +40,15 @@ jobs:
     - name: sleep for 10 seconds
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
-        time: '10' # for 10 seconds
-    - name: Debug Private Key
-      run: |
-        echo "${{secrets.SSH_PRIVATE_KEY}}"
+        time: '10' # for 10 seconds   
     - name: Deploy the package to the remote server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      uses: garygrossgarten/github-action-scp@release
       with:
-        server: ${{ secrets.HOST }}
+        local: /dev/nahid1-0.0.2-SNAPSHOT.jar
+        remote: home/ec2-user/ # My remote directory
+        host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
-        local_path: /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/nahid1-0.0.2-SNAPSHOT.jar
-        remote_path: /home/ec2-user/ # My remote directory
-        sftp_only: true
-        
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Run a script on remote server (start the application)
       if: always()
       uses: fifsky/ssh-action@master
@@ -62,6 +57,6 @@ jobs:
           cd home/ec2-user/ && java -jar nahid1-0.0.2-SNAPSHOT.jar &
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
-        ssh_privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         args: "-tt"
         # The & in the command runs the process on background
