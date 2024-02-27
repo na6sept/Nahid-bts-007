@@ -41,11 +41,6 @@ jobs:
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
          time: '10' # for 10 seconds
-    - name: Assign Permissions
-      run: |
-          sudo yum install dos2unix
-          cd /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/
-          dos2unix nahid1-0.0.2-SNAPSHOT.jar
     - name: Deploy the package to the remote server
       uses: buxianshan/fine-sftp-deployer@v0.1.5
       with:
