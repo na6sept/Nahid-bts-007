@@ -40,7 +40,14 @@ jobs:
     - name: sleep for 10 seconds
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
-        time: '10' # for 10 seconds   
+         time: '10' # for 10 seconds
+    - name: Run a script on remote server (start the application)
+      if: always()
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/
+          dos2unix nahid1-0.0.2-SNAPSHOT.jar
     - name: Deploy the package to the remote server
       uses: garygrossgarten/github-action-scp@release
       with:
