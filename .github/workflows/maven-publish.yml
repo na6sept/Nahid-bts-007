@@ -41,11 +41,8 @@ jobs:
       uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
          time: '10' # for 10 seconds
-    - name: Run a script on remote server (start the application)
-      if: always()
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
+    - name: Assign Permissions
+      run: |
           cd /home/runner/work/Nahid-bts-007/Nahid-bts-007/dev/
           dos2unix nahid1-0.0.2-SNAPSHOT.jar
     - name: Deploy the package to the remote server
