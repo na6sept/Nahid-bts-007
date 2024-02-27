@@ -51,6 +51,7 @@ jobs:
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         recursive: true
         atomicPut: true
+        dotfiles: true
     - name: Run a script on remote server (start the application)
       if: always()
       uses: fifsky/ssh-action@master
